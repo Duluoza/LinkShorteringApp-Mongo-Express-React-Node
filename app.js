@@ -1,12 +1,18 @@
 const express = require('express');
 const config = require('config');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const app = express();
+app.use(cors());
+
+app.use(bodyParser.json());
+app.use(express.json({ extended: true }));
 
 app.use('/api/auth', require('./routes/auth'));
 
-const PORT = config.get('port') ||5000;
+const PORT = config.get('port') || 5000;
 
 async function start() {
     try {

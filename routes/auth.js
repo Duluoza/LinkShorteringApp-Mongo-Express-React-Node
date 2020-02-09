@@ -15,7 +15,6 @@ router.post(
     ],
     async (req, res) => {
         try {
-
             const errors = validationResult(req);
 
             if(!errors.isEmpty()) {
@@ -66,13 +65,13 @@ router.post(
 
             const {email, password} = req.body;
 
-            const user = await User.findOne({ email })
+            const user = await User.findOne({ email });
 
             if(!User) {
                 return res.status(400).json({ message: "Пользователь не найден" })
             }
 
-            const isMatch = await bcrypt.compare(password, user.password)
+            const isMatch = await bcrypt.compare(password, user.password);
 
             if(!isMatch) {
                 return res.status(400).json({ message: "Неверный пароль, попробоуйте снова" })
