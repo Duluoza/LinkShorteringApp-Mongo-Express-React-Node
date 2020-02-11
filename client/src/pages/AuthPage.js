@@ -13,6 +13,10 @@ export const AuthPage = () => {
     });
 
     useEffect(() => {
+       window.M.updateTextFields()
+    }, []);
+
+    useEffect(() => {
         message(error);
         clearError()
     }, [error, message, clearError]);
@@ -39,7 +43,7 @@ export const AuthPage = () => {
         <div className="row">
             <div className="col s6 offset-s3">
                 <h1>Сократим Ссылку</h1>
-                <div className="card brown lighten-1">
+                <div className="card blue darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">Авторизация</span>
                         <div>
