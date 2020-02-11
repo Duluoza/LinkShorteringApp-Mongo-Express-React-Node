@@ -64,17 +64,14 @@ router.post(
             }
 
             const {email, password} = req.body;
-            console.log(email, password)
 
             const user = await User.findOne({ email });
-            console.log(user)
 
             if(!User) {
                 return res.status(400).json({ message: "Пользователь не найден" })
             }
 
             const isMatch = await bcrypt.compare(password, user.password);
-            console.log('isMatch' , isMatch)
 
             if(!isMatch) {
                 return res.status(400).json({ message: "Неверный пароль, попробоуйте снова" })
@@ -90,7 +87,6 @@ router.post(
 
         }
         catch (e) {
-            console.log(e)
             res.status(500).json( { message: "Что-то пошло не так" } );
         }
 
