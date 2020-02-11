@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config/default');
+const config = require('config');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 const router = Router();
@@ -64,29 +64,33 @@ router.post(
             }
 
             const {email, password} = req.body;
+            console.log(email, password)
 
             const user = await User.findOne({ email });
+            console.log(user)
 
             if(!User) {
                 return res.status(400).json({ message: "Пользователь не найден" })
             }
 
             const isMatch = await bcrypt.compare(password, user.password);
+            console.log('isMatch' , isMatch)
 
             if(!isMatch) {
                 return res.status(400).json({ message: "Неверный пароль, попробоуйте снова" })
-
             }
 
             const token = jwt.sign(
-                { userId: user.id },
+                { userId: user._id },
                 config.get('jwtSecret'),
-                { expiresIn: '1h'}
+                { expiresIn: '1h' }
             );
 
-            res.json({ token, userId: user.id })
+            res.json({token, userId: user._id})
 
-        } catch (e) {
+        }
+        catch (e) {
+            console.log(e)
             res.status(500).json( { message: "Что-то пошло не так" } );
         }
 
