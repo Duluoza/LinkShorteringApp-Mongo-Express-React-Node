@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 
     try {
             // req.headers.authorization - лежит токен и беарер, забиаем только токен через split('')[1]
-        const token = req.headers.authorization.split('')[1]; // "Bearer Token"
+        const token = req.headers.authorization.split(' ')[1]; // "Bearer Token"
 
         if(!token) {
             return res.status(401).json({ message: 'Нет авторизации'})
