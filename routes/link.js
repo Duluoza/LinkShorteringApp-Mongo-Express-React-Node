@@ -30,9 +30,6 @@ router.post('/generate', auth, async (req, res) => {
     }
 });
 
-// получаем все созданные линки из базы данных через поле owner
-// поле owner в схеме - это айди юзера. Его мы получаем из мидлвары auth
-// там создается поле req.user , в которое мы присваиваем раскодированный токен, а в нем есть поле userId
 router.get('/', auth, async (req, res) => {
     try {
         const links = await Link.find({ owner: req.user.userId });
@@ -45,7 +42,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
     try {
-        const link = await Link.findById(req.params.id);
+        const link = await Link.findById({_id: req.params.id});
         res.json(link);
     }
     catch (e) {
