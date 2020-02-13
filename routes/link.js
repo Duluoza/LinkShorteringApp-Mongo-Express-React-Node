@@ -36,7 +36,7 @@ router.get('/', auth, async (req, res) => {
         res.json(links);
     }
     catch (e) {
-        res.status(500).json( { message: "Что-то пошло не так" } );
+        res.status(500).json( { message: "Что-то пошло не так, попробуйте снова" } );
     }
 });
 
